@@ -1,0 +1,119 @@
+Scope - provides a level of security by granting access to things with the
+right credential when only required
+
+Global and local scope
+
+Global scope - defined outside a function
+
+When you start writing JavaScript in a document, you are already in the 
+Global scope. There is only one Global scope throughout a JavaScript 
+document. A variable is in the Global scope if it's defined outside of 
+a function
+
+Local scope - defined inside a function
+
+Variables defined inside a function are in the local scope. And they have a 
+different scope for every call of that function. This means that variables 
+having the same name can be used in different functions. This is because 
+those variables are bound to their respective functions, each having 
+different scopes, and are not accessible in other functions
+
+Block statements
+
+Block statements like if and switch conditions or for and while loops, 
+unlike functions, don't create a new scope. Variables defined inside of a 
+block statement will remain in the scope they were already in
+
+Let and const introduced in ECMAScript6 (June 2015)
+Contrary to the var keyword, the let and const keywords support the 
+declaration of local scope inside block statements.
+
+Lexical Scope
+Lexical Scope means that in a nested group of functions, the inner 
+functions have access to the variables and other resources of their parent 
+scope. This means that the child functions are lexically bound to the 
+execution context of their parents. Lexical scope is sometimes also referred 
+to as Static Scope.
+
+function grandfather() {
+    var name = 'Hammad';
+    // likes is not accessible here
+    function parent() {
+        // name is accessible here
+        // likes is not accessible here
+        function child() {
+            // Innermost level of the scope chain
+            // name is also accessible here
+            var likes = 'Coding';
+        }
+    }
+}
+
+The thing you will notice about lexical scope is that it works forward, 
+meaning name can be accessed by its children's execution contexts. But it 
+doesn't work backward to its parents, meaning that the variable likes 
+cannot be accessed by its parents. This also tells us that variables 
+having the same name in different execution contexts gain precedence from 
+top to bottom of the execution stack. A variable, having a name similar to 
+another variable, in the innermost function (topmost context of the 
+execution stack) will have higher precedence.
+
+Closures
+The concept of closures is closely related to Lexical Scope, which we studied above. A Closure is created when an inner function tries to access the scope chain of its outer function meaning the variables outside of the immediate lexical scope. Closures contain their own scope chain, the scope chain of their parents and the global scope.
+
+A closure can not only access the variables defined in its outer function but also the arguments of the outer function.
+
+A closure can also access the variables of its outer function even after the function has returned. This allows the returned function to maintain access to all the resources of the outer function.
+
+When you return an inner function from a function, that returned function will not be called when you try to call the outer function. You must first save the invocation of the outer function in a separate variable and then call the variable as a function. Consider this example:
+
+function greet() {
+    name = 'Hammad';
+    return function () {
+        console.log('Hi ' + name);
+    }
+}
+
+greet(); // nothing happens, no errors
+
+// the returned function from greet() gets saved in greetLetter
+greetLetter = greet();
+
+ // calling greetLetter calls the returned function from the greet() function
+greetLetter(); // logs 'Hi Hammad'
+The key thing to note here is that greetLetter function can access the name variable of the greet function even after it has been returned. One way to call the returned function from the greet function without variable assignment is by using parentheses () two times ()() like this:
+
+function greet() {
+    name = 'Hammad';
+    return function () {
+        console.log('Hi ' + name);
+    }
+}
+
+greet()(); // logs 'Hi Hammad'
+Public and Private Scope
+In many other programming languages, you can set the visibility of properties and methods of classes using public, private and protected scopes. Consider this example using the PHP language:
+
+// Public Scope
+public $property;
+public function method() {
+  // ...
+}
+
+// Private Sccpe
+private $property;
+private function method() {
+  // ...
+}
+
+// Protected Scope
+protected $property;
+protected function method() {
+  // ...
+}
+Encapsulating functions from the public (global) scope saves them from vulnerable attacks. But in JavaScript, there is no such thing as public or private scope. However, we can emulate this feature using closures. To keep everything separate from the global we must first encapsulate our functions within a function like this:
+
+(function () {
+  // private scope
+})();
+The parenthesis at the end of the function tells the interpreter to execute it as soon as it reads it without invocation. We can add functions and variables in it and they will not accessible outside. But what if we want to access them outside, meaning we want some of them to be public and some of them to be private? One type of closure, we can use, is called the Module Pattern which allows us to scope our functions using both public and private scopes in an object.

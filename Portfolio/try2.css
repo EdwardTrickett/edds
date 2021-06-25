@@ -1,0 +1,87 @@
+.button{
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.logobox{
+  display: flex;
+  justify-content: center;
+}
+
+.logo:hover{
+  animation: spin 4s infinite;
+}
+
+@keyframes spin{
+ from{ 
+  transform: rotateX(0deg)
+ }
+ to{
+   transform: rotateX(720deg)
+ }
+}
+
+a1:hover {
+  color:rgb(255, 255, 255);
+  background:rgb(0, 0, 0);
+  transition: 0.5s;
+}
+
+a2:hover {
+  color:rgb(255, 255, 255);
+  transition: 0.5s;
+  border-radius: 100%;
+  background-color: rgb(0, 68, 255);
+}
+
+a3:hover {
+  color:rgb(255, 255, 255);
+  transition:all 0.5s;
+}
+
+.button i1:hover{
+  background-color: rgb(0, 174, 255);
+  font-size: 150px;
+  transition: font-size 1s;
+}
+
+
+.button i2:hover{
+  background-color: rgb(0, 68, 255);
+  font-size: 150px;
+  transition: font-size 1s;
+  border-radius: 50%;
+}
+
+.button i3:hover{
+  background-color: rgb(140, 143, 145);
+  font-size: 150px;
+  transition: font-size 0.5s;
+  animation: spingit 2s infinite;
+}
+
+@keyframes spingit{
+  from{ 
+   transform: rotateY(0deg)
+  }
+  to{
+    transform:rotateY(720deg)
+  }
+ }
+
+.button i4:hover{
+  background-color: rgb(255, 166, 0);
+  font-size: 150px;
+  transition: font-size 0.5s;
+  animation: spininsta 4s infinite;
+}
+
+@keyframes spininsta{
+  from{ 
+   transform:rotateZ(0deg)
+  }
+  to{
+    transform:rotateZ(720deg)
+}
+}
